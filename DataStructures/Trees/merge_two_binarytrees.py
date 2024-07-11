@@ -4,6 +4,8 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
+# Tc: O(min(n,m)) Sc: O(min(n,m))
 class Solution:
     def mergeTrees(self,t1:TreeNode,t2:TreeNode) -> TreeNode:
         if not t1:
