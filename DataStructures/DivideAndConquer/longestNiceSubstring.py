@@ -65,3 +65,5 @@ sol = Solution()
 print(sol.findLongestNiceSubstring("BbCcXxY"))  # Expected: BbCcXx
 print(sol.findLongestNiceSubstring("aZAbcD"))   # Expected: (empty string)
 print(sol.findLongestNiceSubstring("qQwWeErR")) # Expected: qQwWeErR
+
+# Tc: O(n^3) Sc: O(n)
