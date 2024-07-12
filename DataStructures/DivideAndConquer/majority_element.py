@@ -45,3 +45,5 @@ sol = Solution()
 print(sol.findMajority([1, 2, 2, 3, 2])) # Expect 2
 print(sol.findMajority([4, 4, 4, 4, 7, 4, 4])) # Expect 4
 print(sol.findMajority([9, 9, 1, 1, 9, 1, 9, 9])) # Expect 9
+
+# Tc: O(nlogn) Sc: O(nlogn)
