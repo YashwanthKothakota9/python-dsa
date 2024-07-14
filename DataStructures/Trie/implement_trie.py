@@ -37,3 +37,8 @@ if __name__ == "__main__":
     print(trie.search("apple"))  # True
     print(trie.search("app"))    # False
     print(trie.startsWith("app"))# True        
+    
+# Time Complexity:
+# Insert:O(m) , where m is the key length.
+# Search and StartsWith: O(m) in the worst case scenario.
+# Space Complexity:O(n*m) , where n  is the number of inserted keys and m is the average key length.
