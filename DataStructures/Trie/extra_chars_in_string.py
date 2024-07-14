@@ -76,3 +76,12 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+# Time Complexity
+# Trie Construction: (O(W x L)), where (W) is the number of words in the dictionary and (L) is the average length of these words.
+# Dynamic Programming Calculation: (O(n^2)), where (n) is the length of the input string s.
+# Total Time Complexity: (O(W x L + n^2)).
+# Space Complexity
+# Trie Storage: (O(W x L)), for storing the words in the trie.
+# Dynamic Programming Array: (O(n)), for the array used in dynamic programming.
+# Total Space Complexity: (O(W x L + n)).
