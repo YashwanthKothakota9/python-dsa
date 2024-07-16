@@ -5,6 +5,7 @@
 # Note: The given sentence might contain other characters like digits or spaces, your solution should handle these too.
 
 
+# Tc: O(n) Sc: O(1)
 
 
 
