@@ -30,7 +30,7 @@ class Solution:
     def compare(self, str1, str2):
         index1 = len(str1)-1
         index2 = len(str2)-1
-        while index1 >= 0 and index2 >= 0:
+        while index1 >= 0 or index2 >= 0:
             i1 = self.get_next_valid_char_index(str1, index1)
             i2 = self.get_next_valid_char_index(str2, index2)
             if i1 < 0 and i2 < 0:
@@ -55,3 +55,6 @@ class Solution:
                 break
             index -= 1
         return index
+    
+sol = Solution()
+print(str(sol.compare("bbbextm","bbb#extm")))
