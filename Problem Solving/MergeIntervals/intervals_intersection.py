@@ -22,6 +22,12 @@
 # So our algorithm will be to iterate through both the lists together to see if any two intervals overlap. If two intervals overlap, we will insert the overlapped part into a result list and move on to the next interval which is finishing early.
 
 
+# Time Complexity
+# As we are iterating through both the lists once, the time complexity of the above algorithm is O(N+M), where ‘N’ and ‘M’ are the total number of intervals in the input arrays respectively.
+
+# Space Complexity
+# Ignoring the space needed for the result list, the algorithm runs in constant space O(1).
+
 class Interval:
     def __init__(self, start, end):
         self.start = start
