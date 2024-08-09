@@ -60,3 +60,58 @@ main()
 
 # Space Complexity
 # The algorithm runs in constant space O(1).
+
+# How do we search in a sorted and rotated array that also has duplicates?
+
+# The code above will fail in the following example!
+
+# Example 1:
+
+# Input: [3, 7, 3, 3, 3], key = 7
+# Output: 1
+# Explanation: '7' is present in the array at index '1'.
+
+# The only problematic scenario is when the numbers at indices start, middle, and end are the same, as in this case, we can’t decide which part of the array is sorted. In such a case, the best we can do is to skip one number from both ends: start = start + 1 & end = end - 1
+
+class Solution2:
+  def search(self, arr, key):
+    start, end = 0, len(arr) - 1
+    while start <= end:
+      mid = start + (end - start) // 2
+      if arr[mid] == key:
+        return mid
+
+      # the only difference from the previous solution,
+      # if numbers at indexes start, mid, and end are same, we can't choose a side
+      # the best we can do, is to skip one number from both ends as key != arr[mid]
+      if arr[start] == arr[mid] and arr[end] == arr[mid]:
+        start += 1
+        end -= 1
+      elif arr[start] <= arr[mid]:  # left side is sorted in ascending order
+        if key >= arr[start] and key < arr[mid]:
+          end = mid - 1
+        else:  # key > arr[mid]
+          start = mid + 1
+
+      else:  # right side is sorted in ascending order
+        if key > arr[mid] and key <= arr[end]:
+          start = mid + 1
+        else:
+          end = mid - 1
+
+    # we are not able to find the element in the given array
+    return -1
+
+
+def main2():
+  sol = Solution2()
+  print(sol.search([3, 7, 3, 3, 3], 7))
+
+
+main2()
+
+# Time Complexity
+# This algorithm will run most of the times in O(logN) . However, since we only skip two numbers in case of duplicates instead of half of the numbers, the worst case time complexity will become O(N).
+
+# Space Complexity
+# The algorithm runs in constant space O(1).
