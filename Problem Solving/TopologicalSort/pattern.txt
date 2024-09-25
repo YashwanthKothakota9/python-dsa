@@ -1,0 +1,95 @@
+What is Topological Sorting?
+Topological sorting is a method used to order the vertices of a directed graph such that for every directed edge u->v, vertex (u) comes before (v) in the ordering. This concept is crucial in scenarios where there is a dependency between tasks or elements.
+
+For instance, in task scheduling, some tasks must be completed before others, making topological sorting a useful technique.
+
+
+Topological Sorting in Directed Acyclic Graphs (DAGs)
+Topological sorting is applicable exclusively to Directed Acyclic Graphs (DAGs). A DAG is a directed graph that contains no cycles. The absence of cycles ensures that there is a clear direction or hierarchy within the graph, which is essential for topological sorting.
+
+In a DAG, it is always possible to achieve a topological order of the vertices. This order respects the direction of the edges, meaning that if there is a directed edge from vertex (u) to vertex (v), (u) will appear before (v) in the topological order.
+
+Topological Order May Not Be Unique
+One of the interesting aspects of topological sorting is that the order may not be unique. Depending on the structure of the graph, there could be multiple valid topological orders. This is particularly true when the graph contains vertices with no incoming edges (indegree 0) at multiple stages.
+
+For example, consider a scenario where two vertices, (u) and (v), both have no incoming edges and are not connected to each other. In this case, either (u) or (v) can appear first in the topological order, resulting in multiple valid topological sequences.
+
+Example with Multiple Topological Sorting Outcomes:
+
+Consider the following Directed Acyclic Graph (DAG):
+
+    5        7
+   / \      / \
+  2   0    3   4
+   \ /    /     \
+    6    1       8
+In this graph, there are several possible topological sorts:
+
+Order 1: 7, 5, 2, 6, 3, 1, 0, 4, 8
+Order 2: 7, 5, 2, 3, 1, 0, 4, 6, 8
+Order 3: 5, 7, 3, 2, 1, 6, 0, 4, 8
+
+In each of these orders, the vertices respect the direction of the edges. For example, in Order 1, vertex 7 appears before vertices 3 and 4, which it points to. Similarly, vertex 5 appears before vertices 2 and 0, which it points to. This demonstrates that while the topological sort maintains the required dependencies, the exact order can vary depending on the choice of starting points and the order in which vertices are processed.
+
+Topological Sort Using DFS
+Topological sorting using Depth First Search (DFS) involves visiting all vertices in a depth-first manner. When visiting a vertex, we recursively visit all its adjacent vertices that have not been visited. After visiting all adjacent vertices, we add the current vertex to a stack. This ensures that the current vertex is processed only after all vertices it depends on are processed. Finally, we pop vertices from the stack to get the topological order.
+
+Step-by-Step Algorithm
+Initialization:
+
+Create a stack to store the topological sort result.
+Mark all vertices as not visited.
+Recursive DFS Utility Function (topologicalSortUtil):
+
+Mark the current vertex as visited.
+For each adjacent vertex, if it is not visited, recursively call topologicalSortUtil for that vertex.
+After visiting all adjacent vertices, push the current vertex onto the stack.
+Topological Sort Function (topologicalSort):
+
+For each vertex, if it is not visited, call the recursive DFS utility function.
+Once all vertices are processed, pop elements from the stack to get the topological order.
+
+
+Pros, Cons, and Applications of Topological Sorting
+Pros
+Linear Ordering
+
+Provides a linear order of vertices that respects the dependencies among them.
+Simple and Efficient
+
+Both DFS and Kahn's Algorithm for topological sorting are simple to understand and implement.
+The time complexity of O(V+E) is efficient for most practical purposes.
+Detecting Cycles
+
+Useful for detecting cycles in a directed graph. If the topological sort is not possible, it indicates the presence of a cycle.
+
+Cons
+Applicable Only to DAGs
+
+Topological sorting can only be applied to Directed Acyclic Graphs (DAGs). It cannot be used for graphs with cycles or undirected graphs.
+No Unique Order
+
+There may be multiple valid topological sorts for a given graph, depending on the graph's structure and the order in which vertices are processed.
+Extra Space
+
+Requires additional space for storing the in-degree array (in Kahn's Algorithm) and the stack or queue used during the sorting process.
+
+Applications
+Task Scheduling
+
+Used to schedule tasks where certain tasks must be completed before others. For example, in project management, where tasks have dependencies.
+Course Prerequisites
+
+Determining the order in which courses should be taken when some courses are prerequisites for others.
+Build Systems
+
+Used in build systems to determine the order in which components or modules should be compiled, where some modules depend on others.
+Dependency Resolution
+
+Used in package managers and dependency resolution systems to install software packages in the correct order, respecting dependencies.
+Instruction Scheduling
+
+In computer architecture, used to schedule instructions in a pipeline while respecting data dependencies.
+Compiler Design
+
+Used in compiler design for various purposes such as ordering of compilation tasks, resolving symbol dependencies, and so on.
