@@ -135,3 +135,100 @@ if __name__ == "__main__":
     # Example 3
     example3 = [[1, 0, 0, 1], [0, 1, 1, 0], [0, 1, 1, 0], [1, 0, 0, 1]]
     print(solution.findProvinces(example3))  # Expected Output: 2
+
+
+# Time Complexity
+# Initialization:
+
+# Initializing the parent and rank arrays takes O(N) time, where (N) is the number of nodes (or cities).
+# Find Operation:
+
+# The find operation with path compression has an amortized time complexity of O(alpha(N)), where is alpha(N) the inverse Ackermann function. This function is extremely slow-growing and can be considered nearly constant for practical input sizes.
+# Union Operation:
+
+# The union_set operation involves two find operations and one assignment, leading to a time complexity of O(alpha(N)) per union.
+# Processing Connections:
+
+# The nested loops iterate through each pair of nodes to check for connections. This involves O(N ^ 2) iterations, where each iteration involves at most two find operations and one union_set operation. Thus, the total time complexity for processing all connections is O(N ^ 2*alpha(N)).
+# Given that alpha(N) is nearly constant, the overall time complexity can be simplified to O(N ^ 2).
+
+# Space Complexity
+# Parent and Rank Arrays:
+# The parent and rank arrays require O(N) space each, where(N) is the number of nodes.
+
+
+# Alternate Approach (Using DFS)
+# At a high level, the problem of identifying provinces in the given matrix can be visualized as detecting connected components in an undirected graph. Every city represents a node, and a direct connection between two cities is an edge. The number of separate, interconnected clusters in this graph is essentially the number of provinces. To navigate this graph and identify these clusters, we employ the Depth First Search (DFS) technique, marking visited nodes (cities) along the way.
+
+# Step-by-step Algorithm
+# Initialization:
+
+# Initialize an integer variable provinces to 0. This will count the number of distinct provinces.
+# Create a visited array of the same size as the number of cities (isConnected.size()), initialized to false. This array keeps track of whether a city has been visited.
+# Iterate Over Each City:
+
+# Loop through each city i from 0 to n-1 (where n is the number of cities).
+# For each city i, check if it has been visited. If not, it indicates the start of a new province.
+# Increment the provinces counter, as this city marks the start of a new province.
+# Call the dfs method to explore all cities connected to city i.
+# Depth-First Search (DFS):
+
+# In the dfs method, start with city i.
+# Loop through each city j from 0 to n-1.
+# If city i is connected to city j (isConnected[i][j] == 1) and city j has not been visited (!visited[j]), mark city j as visited (visited[j] = true).
+# Recursively call the dfs method with city j as the new starting point to explore all its connected cities.
+# Repeat DFS for Each Province:
+
+# Once the DFS completes for a city, return to the main loop in the findCircleNum method and continue with the next unvisited city.
+# Repeat this process until all cities have been visited.
+# Return the Number of Provinces:
+
+# After all cities have been checked, return the value of provinces, which now holds the total number of distinct provinces.
+
+
+class Solution2:
+    def findProvinces(self, isConnected) -> int:
+        def dfs(city):
+            # For each city, mark it as visited and explore its connections
+            for i in range(len(isConnected)):
+                if isConnected[city][i] == 1 and not visited[i]:
+                    visited[i] = True
+                    dfs(i)
+
+        visited = [False] * len(isConnected)
+        provinces = 0
+
+        for city in range(len(isConnected)):
+            if not visited[city]:
+                dfs(city)
+                provinces += 1
+
+        return provinces
+
+
+def main():
+    solution = Solution()
+
+    # Example 1
+    example1 = [[1, 1, 0], [1, 1, 0], [0, 0, 1]]
+    print(solution.findProvinces(example1))  # Expected Output: 2
+
+    # Example 2
+    example2 = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+    print(solution.findProvinces(example2))  # Expected Output: 3
+
+    # Example 3
+    example3 = [[1, 0, 0, 1], [0, 1, 1, 0], [0, 1, 1, 0], [1, 0, 0, 1]]
+    print(solution.findProvinces(example3))  # Expected Output: 2
+
+
+# Time Complexity
+# Depth First Search (DFS): For a given node, the DFS will explore all of its neighbors. In the worst case, we may end up visiting all nodes in the graph starting from a single node. Hence, the DFS complexity is O(n), where (n) is the number of nodes.
+
+# Overall Time Complexity: For each node, we might call DFS once (if that node is not visited before). Thus, the overall time complexity is O(n^2), with the DFS call being nested inside a loop that iterates over all nodes. In dense graphs where each node is connected to every other node, we will reach this upper bound.
+
+
+# Space Complexity
+# Visited Array: This is an array of size (n) (the number of nodes), so its space requirement is O(n).
+# Recursive Call Stack: In the worst case, if all cities are connected in a linear manner (like a linked list), the maximum depth of recursive DFS calls will be (n). Hence, the call stack will take O(n) space.
+# Overall Space Complexity: The dominant space-consuming factors are the visited array and the recursive call stack. Hence, the space complexity is O(n).
